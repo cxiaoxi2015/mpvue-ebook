@@ -13,7 +13,6 @@
     <div :style="{marginTop: '23px'}">
       <HomeBook
         title="为你推荐"
-        class="home-book"
         :row="2"
         :col="2"
         :data="data"
@@ -25,7 +24,6 @@
     <div :style="{marginTop: '23px'}">
       <HomeBook
         title="分类"
-        class="home-book"
         :row="2"
         :col="2"
         :data="category"
