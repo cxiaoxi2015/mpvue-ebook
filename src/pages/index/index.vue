@@ -57,7 +57,7 @@
           @onMoreClick="onCategoryMoreClick"/>
       </div>
     </div>
-    <Auth v-if="!isAuth" @getUserInfo="getUserInfo" />
+    <Auth v-if="!isAuth" @getUserInfo="init" />
   </div>
 </template>
 
@@ -73,7 +73,7 @@
     freeRead,
     hotBook
   } from '../../api'
-  import { getSetting } from '../../api/wechat'
+  import { getSetting, getUserInfo } from '../../api/wechat'
 
   export default {
     data() {
@@ -168,22 +168,32 @@
       },
       onCategoryMoreClick() {},
       getUserInfo() {
-        this.getSetting()
+        getUserInfo(
+          (userInfo) => {
+            console.log(userInfo)
+          },
+          () => {
+            console.log('failed......')
+          }
+        )
       },
       getSetting() {
         getSetting('userInfo', () => {
           this.isAuth = true
+          this.getUserInfo()
         }, () => {
           this.isAuth = false
         })
+      },
+      init() {
+        this.getSetting()
       }
     },
     created() {
       // let app = getApp()
     },
     mounted() {
-      // this.getHomeData()
-      this.getSetting()
+      this.init()
     }
   }
 </script>

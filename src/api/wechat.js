@@ -12,3 +12,20 @@ export function getSetting(auth, onSuccess, onFail) {
     }
   })
 }
+
+export function getUserInfo(onSuccess, onFail) {
+  mpvue.getUserInfo({
+    success(res) {
+      console.log(res) // 获得userInfo
+      const { userInfo } = res
+      if (userInfo) {
+        onSuccess(userInfo)
+      } else {
+        onFail(res)
+      }
+    },
+    fail(res) {
+      console.log(res) // 直接抛出异常
+    }
+  })
+}
