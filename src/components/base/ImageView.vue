@@ -65,7 +65,14 @@ export default {
     }
   },
   watch: {
-    src(valVal, oldVal) {}
+    src(val, oldVal) {
+      if (val && val.length && val !== oldVal) {
+        this.$nextTick(() => {
+          this.isLoading = true
+          this.error = false
+        })
+      }
+    }
   },
   computed: {},
   mounted() {}
