@@ -10,13 +10,23 @@ function handleError (err) {
   console.log(err)
 }
 
-export function get (url, params = {}) {
+export function get (url, params = {}, showError = true) {
   const fly = createFly()
   if (fly) {
     return new Promise((resolve, reject) => {
       fly.get(url, params).then(res => {
-        console.log(res)
-        resolve(res)
+        if (res && res.data && res.data && res.data.error_code === 0) {
+          resolve(res)
+        } else {
+          if (showError) {
+            const msg = (res && res.data && res.data.msg) || '请求失败'
+            mpvue.showToast({
+              title: msg,
+              duration: 2000
+            })
+          }
+          reject(res)
+        }
       }).catch(e => {
         handleError(e)
         reject(e)
@@ -25,13 +35,23 @@ export function get (url, params = {}) {
   }
 }
 
-export function post (url, params = {}) {
+export function post (url, params = {}, showError = true) {
   const fly = createFly()
   if (fly) {
     return new Promise((resolve, reject) => {
       fly.post(url, params).then(res => {
-        console.log(res)
-        resolve(res)
+        if (res && res.data && res.data && res.data.error_code === 0) {
+          resolve(res)
+        } else {
+          if (showError) {
+            const msg = (res && res.data && res.data.msg) || '请求失败'
+            mpvue.showToast({
+              title: msg,
+              duration: 2000
+            })
+          }
+          reject(res)
+        }
       }).catch(e => {
         handleError(e)
         reject(e)

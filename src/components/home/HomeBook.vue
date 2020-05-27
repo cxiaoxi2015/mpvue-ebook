@@ -31,7 +31,7 @@
             <div class="category-num">{{ book.num }} 本书</div>
             <div class="category-img-wrapper">
               <div class="category-img1">
-                <ImageView :src="book.cover2"></ImageView>
+                <ImageView :src="book.cover"></ImageView>
               </div>
               <div class="category-img2">
                 <ImageView :src="book.cover2"></ImageView>
