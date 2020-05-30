@@ -71,9 +71,18 @@
     getHomeData,
     recommend,
     freeRead,
-    hotBook
+    hotBook,
+    register
   } from '../../api'
-  import { getSetting, getUserInfo } from '../../api/wechat'
+  import {
+    getSetting,
+    getUserInfo,
+    setStorageSync,
+    getStorageSync,
+    getUserOpenId,
+    showLoading,
+    hideLoading
+  } from '../../api/wechat'
 
   export default {
     data() {
@@ -119,7 +128,8 @@
         }
       },
       onSearchBarClick() {
-        // 跳转到搜索页
+        console.log('dianji')
+        this.$router.push('/pages/search/main')
       },
       onBannerClick() {
         console.log('banner click...')
@@ -130,10 +140,8 @@
       onMoreClick() {
         console.log('more click...')
       },
-      getHomeData(params) {
-        getHomeData({
-          openId: '1234'
-        }).then(res => {
+      getHomeData(openId, userInfo) {
+        getHomeData({ openId }).then(res => {
           const {
             data: {
               hotSearch: {
@@ -157,20 +165,30 @@
           this.homeCard = {
             bookList: shelf,
             num: shelfCount,
-            userInfo: {
-              avatar: 'https://www.youbaobao.xyz/mpvue-res/logo.jpg',
-              nickname: '米老鼠'
-            }
+            userInfo
           }
+          hideLoading()
         }).catch(e => {
           console.log('捕获异常', e)
+          hideLoading()
         })
       },
       onCategoryMoreClick() {},
       getUserInfo() {
+        const onOpenIdComplete = (openId, userInfo) => {
+          this.getHomeData(openId, userInfo)
+          register(openId, userInfo)
+        }
         getUserInfo(
           (userInfo) => {
             console.log(userInfo)
+            setStorageSync('userInfo', userInfo)
+            const openId = getStorageSync('openId')
+            if (!openId || !openId.length) {
+              getUserOpenId(openId => onOpenIdComplete(openId, userInfo))
+            } else {
+              onOpenIdComplete(openId, userInfo)
+            }
           },
           () => {
             console.log('failed......')
@@ -180,6 +198,7 @@
       getSetting() {
         getSetting('userInfo', () => {
           this.isAuth = true
+          showLoading('正在加载')
           this.getUserInfo()
         }, () => {
           this.isAuth = false

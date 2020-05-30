@@ -1,6 +1,6 @@
 <!-- ImageView -->
 <template>
-  <div class="image-view" @click="onClick">
+  <div class="image-view" :style="{ height }" @click="onClick">
     <img
       :class="round ? 'round image' : 'image'"
       :style="{ height }"
