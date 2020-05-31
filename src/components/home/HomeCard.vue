@@ -124,6 +124,10 @@ export default {
         }
         .nickname {
           margin: 0 8.5px;
+          max-width: 75px;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
         }
         .round-item {
           width: 4px;

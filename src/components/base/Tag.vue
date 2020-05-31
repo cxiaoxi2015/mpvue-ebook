@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     onClick() {
-      this.$emit('onClick')
+      this.$emit('onClick', this.text)
     }
   },
   watch: {},
@@ -35,6 +35,8 @@ export default {
     background: #F7F7F9;
     border-radius: 16px;
     padding: 6px 17px;
+    width: 100%;
+    box-sizing: border-box;
     .tag {
       width: 100%;
       overflow: hidden;

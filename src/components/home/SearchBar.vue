@@ -100,6 +100,7 @@ export default {
       .search-bar-input {
         flex: 1;
         margin: 0 8px;
+        color: #333;
       }
       .search,
       .clear {
