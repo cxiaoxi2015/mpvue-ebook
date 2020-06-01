@@ -6,7 +6,9 @@
         @onClick="onSearchBarClick"
         :hot-search="hotSearch"
       />
-      <HomeCard :data="homeCard" />
+      <HomeCard
+        :data="homeCard"
+        @onBookClick="onHomeBookClick" />
       <HomeBanner
         img="http://www.youbaobao.xyz/book/res/bg.jpg"
         title="mpvue2.0实战多端小程序上线啦"
@@ -138,8 +140,14 @@
       onBannerClick() {
         console.log('banner click...')
       },
-      onHomeBookClick() {
-        console.log('book click...')
+      onHomeBookClick(book) {
+        console.log(book)
+        this.$router.push({
+          path: '/pages/detail/main',
+          query: {
+            fileName: book.fileName
+          }
+        })
       },
       onMoreClick() {
         console.log('more click...')
