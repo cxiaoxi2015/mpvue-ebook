@@ -8,7 +8,7 @@
       :rankNum="book.rankNum"
       :rankAvg="book.rankAvg" />
     <DetailRate
-      :rate-value="book.rateValue"
+      :rateValue="book.rank"
       @onRateChange="onRateChange"
     />
     <DetailContents
@@ -16,15 +16,14 @@
       @readBook="readBook"
     />
     <DetailBottom
-      :is-in-shelf="isInShelf"
-      @handleShelf="handleShelf"
-    />
+      :isInShelf="isInShelf"
+      @handleShelf="handleShelf" />
   </div>
 </template>
 <script>
-import DetailBook from '@/components/detail/DetailBook'
-import DetailStat from '@/components/detail/DetailStat'
-import DetailRate from '@/components/detail/DetailRate'
+import DetailBook from '../../components/detail/DetailBook'
+import DetailStat from '../../components/detail/DetailStat'
+import DetailRate from '../../components/detail/DetailRate'
 import DetailContents from '../../components/detail/DetailContents'
 import DetailBottom from '../../components/detail/DetailBottom'
 import {
@@ -62,7 +61,7 @@ export default {
         fileName,
         rank: value
       }).then(res => {
-
+        this.getBookDetail()
       })
     },
     getBookDetail() {
@@ -71,6 +70,8 @@ export default {
       bookDetail({ openId, fileName })
         .then(res => {
           this.book = res.data.data
+          console.log('book detail')
+          console.log(this.book)
         })
     },
     getBookContents() {

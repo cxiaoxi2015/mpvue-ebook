@@ -3,7 +3,7 @@
     <span class="detail-rate-text">轻点评分</span>
     <div class="detail-rate-wrapper">
       <van-rate
-        :value="rateValue"
+        :value="value"
         :size="25"
         color="#1D89EE"
         void-color="#DEE0E2"
@@ -16,12 +16,23 @@
 
 <script>
   export default {
+    name: 'DetailRate',
     props: {
       rateValue: Number
+    },
+    data() {
+      return {
+        value: 0
+      }
     },
     methods: {
       onRateChange(e) {
         this.$emit('onRateChange', e.mp.detail)
+      }
+    },
+    watch: {
+      rateValue(val) {
+        this.value = val
       }
     }
   }

@@ -1,7 +1,22 @@
 <template>
   <div class="detail-bottom">
-    <div class="detail-btn-wrapper" @click="test">
-      测试文本
+    <div class="detail-btn-wrapper">
+      <van-button
+        :custom-class="isInShelf ? 'detail-btn-remove' : 'detail-btn-shelf'"
+        round
+        @click="handleShelf"
+      >
+        {{isInShelf ? '移出书架' : '加入书架'}}
+      </van-button>
+    </div>
+    <div class="detail-btn-wrapper">
+      <van-button
+        custom-class="detail-btn-read"
+        round
+        @click="() => readBook()"
+      >
+        阅读
+      </van-button>
     </div>
   </div>
 </template>
@@ -12,9 +27,8 @@
       isInShelf: Boolean
     },
     methods: {
-      test() {
-        console.log('test')
-        // this.$emit('handleShelf')
+      handleShelf() {
+        this.$emit('handleShelf')
       },
       readBook() {
         this.$emit('readBook')
@@ -36,7 +50,7 @@
     padding: 0 15px;
     border-top: 1px solid #eee;
     box-shadow: 0 -2px 4px 0 rgba(0,0,0,.1);
-
+    z-index: 1000;
     .detail-btn-wrapper {
       flex: 1;
     }
