@@ -12,7 +12,7 @@
           <div
             class="book-wrapper"
             :style="{flexDirection: mode === HOME_BOOK_MODE.COL ? 'column' : 'row'}"
-            @click="onBookClick"
+            @click="onBookClick(book)"
             v-if="mode === HOME_BOOK_MODE.COL || mode === HOME_BOOK_MODE.ROW">
             <ImageView :src="book.cover"></ImageView>
             <div class="book-title-wrapper book-title-col" v-if="mode === HOME_BOOK_MODE.COL">
@@ -95,7 +95,13 @@ export default {
     onMoreClick() {
       this.$emit('onMoreClick')
     },
-    onBookClick() {
+    onBookClick(book) {
+      this.$router.push({
+        path: '/pages/detail/main',
+        query: {
+          fileName: book.fileName
+        }
+      })
       this.$emit('onBookClick')
     }
   },
